@@ -23,14 +23,21 @@ class RecognitionController < ApplicationController
       puts params[:speech]
       file_name = sanitize_filename(params[:attachement1])
       puts "File name : "+file_name
+      puts "Key: "+ENV["AZURESPEAKERKEY"]
       binaryOfFile = createBinary(file_name)
       if(!binaryOfFile.nil?)
           p "Create the indentification profile ..."
           
-          idProfil = '92489933-e1e7-4fea-97d2-2084d427ad9d'
-          p "Create profile  enrolement..."
+            identificationProfileIds = createProfile()
+            puts identificationProfileIds
+            hash = JSON.parse(identificationProfileIds)
+            puts hash["identificationProfileId"]
+            
+            idProfil =  hash["identificationProfileId"]
+            # idProfil = '92489933-e1e7-4fea-97d2-2084d427ad9d'
+            p "Create profile  enrolement..."
           
-          http_url = 'https://speechelevators.cognitiveservices.azure.com/spid/v1.0/identificationProfiles/'+idProfil+'/enroll'
+          http_url = 'https://speechelevators.cognitiveservices.azure.com/spid/v1.0/identificationProfiles/'+idProfil.to_s+'/enroll'
           puts "create enrollement: "+http_url
           uri = URI(http_url)
           uri.query = URI.encode_www_form({
@@ -42,7 +49,7 @@ class RecognitionController < ApplicationController
           # Request headers
           request['Content-Type'] = 'application/octet-stream'
           # Request headers
-          request['Ocp-Apim-Subscription-Key'] = '{AZURESPEAKERKEY}'
+          request['Ocp-Apim-Subscription-Key'] = ENV["AZURESPEAKERKEY"]
           # Request body
           request.body = binaryOfFile
 
@@ -69,7 +76,8 @@ class RecognitionController < ApplicationController
   end
 
   def createProfile
-              
+        p "Create a profil ..."
+        p "Key:"+ENV["AZURESPEAKERKEY"]
       uri = URI('https://speechelevators.cognitiveservices.azure.com/spid/v1.0/identificationProfiles')
       uri.query = URI.encode_www_form({
       })
@@ -78,7 +86,7 @@ class RecognitionController < ApplicationController
       # Request headers
       request['Content-Type'] = 'application/json'
       # Request headers
-      request['Ocp-Apim-Subscription-Key'] = '{AZURESPEAKERKEY}'
+      request['Ocp-Apim-Subscription-Key'] = ENV["AZURESPEAKERKEY"]
       # Request body
       request.body = "{ \"locale\":\"en-us\"}"
 
@@ -91,9 +99,8 @@ class RecognitionController < ApplicationController
 
   def createBinary(path="")
 
-      puts "ssss"
       p Rails.root
-      absPath = File.expand_path('assets/'+path)
+      absPath = File.expand_path('app/assets/audios/'+path)
       puts "dddd "
       puts absPath
       if(File.exists?(absPath))
