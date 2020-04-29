@@ -77,9 +77,46 @@
 
     <div class="container">
       <div class="heading-title heading-dotted text-center mb-20">
-          <h2>Request an intervention</h2>
+          <h2>Machine Learning</h2>
       </div>
-  </div>
+    </div>
+
+    <div class="col-md-4" >
+            <%= form_for :speech, url: recognition_upload_url, :multipart => true   do |f| %>
+                <fieldset>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="contact:attachment">Audio File Attachment</label>
+
+                            <!-- custom file upload -->
+                            <%= file_field_tag "attachement1", class: 'custom-file-upload' %>
+                            <small class="text-muted block">Max file size: 10Mb (WAV/mp3)</small>
+                            <%= f.hidden_field :avatar_cache %>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="contact:attachment">Audio File Attachment</label>
+
+                            <!-- custom file upload -->
+                            <%= file_field_tag "attachement2", class: 'custom-file-upload' %>
+                            <small class="text-muted block">Max file size: 10Mb (WAV/mp3)</small>
+
+                        </div>
+                        <div class="col-md-12">
+                            <label for="contact:attachment">Audio File Attachment</label>
+
+                            <!-- custom file upload -->
+                            <%= file_field_tag "attachement3", class: 'custom-file-upload' %>
+                            <small class="text-muted block">Max file size: 10Mb ((WAV/mp3)</small>
+
+                        </div>
+                    </div>
+                    <%= submit_tag "Upload the file" %>
+                </fieldset>
+            <% end %> 
+        </div>
+
+
 </body>
+</html>
 
 
