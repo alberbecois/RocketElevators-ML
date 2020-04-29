@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+    <title>Rocket Elevators</title>
+    <meta name="description" content="Odyssey Project" />
+    <meta name="Author" content="David Amyot" />
+
+    <!-- mobile settings -->
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
+</head>
+
+<body class="smoothscroll enable-animation pagesubmissionForm">
+    <div id="wrapper">
+      <div id="header" class="navbar-toggleable-md sticky header-md clearfix">
+        <!-- TOP NAV -->
+        <header id="topNav">
+            <div class="container">
+
+                <!-- Mobile Menu Button -->
+                <button class="btn btn-mobile" data-toggle="collapse" data-target=".nav-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+
+                <!-- Logo -->
+                    <%= link_to index_path, class: "logo float-left" do %><%= image_tag("logo.jpeg", alt: "Rocket Elevators Logo")%><% end %>
+
+                <div class="navbar-collapse collapse float-right nav-main-collapse submenu-dark">
+                    <nav class="nav-main">
+
+                        <ul id="topMain" class="nav nav-pills nav-main nav-onepage">
+                        <!-- HOME -->
+                            <li class="active"> <%= link_to 'HOME', index_path %> </li>
+                        <!-- SERVICES -->
+                            <li> <%= link_to 'SERVICES', index_path(anchor: "services") %> </li>
+                        <!-- PORTFOLIO -->
+                            <li class="nav-item dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#"> PORTFOLIO </a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item"><%= link_to 'Overview', index_path(anchor: "portfolio") %></li>
+                                    <li class="dropdown-item divider"></li>
+                                    <li class="dropdown-item"><%= link_to 'Residential Projects', residential_path %></li>
+                                    <li class="dropdown-item divider"></li>
+                                    <li class="dropdown-item"><%= link_to 'Corporate Projects', corporate_path %></li>
+                                </ul>
+                            </li>
+                        <!-- NEWS -->
+                            <li> <%= link_to 'NEWS', index_path(anchor: "news") %> </li>
+                        <!-- CLIENTS -->
+                            <li> <%= link_to 'CLIENTS', index_path(anchor: "clients") %> </li>
+                        <!-- SUBMISSION FORM -->
+                            <li> <%= link_to 'SUBMISSION', submissionform_path %> </li>
+                        <!-- CONTACT -->
+                            <li> <%= link_to 'CONTACT', anchor: "contact" %> </li>
+                        <!-- CONNECT -->
+                            <% if !current_user %>
+                                <li><%= link_to "LOGIN", new_user_session_path %></li>
+                                <li><%= link_to "SIGN UP", new_user_registration_path %></li>
+                            <% elsif current_user.has_role? :admin %>
+                                <li><%= link_to "INTERVENTIONS", interventions_path %> </li>
+                                <li><%= link_to "ADMIN PANEL", rails_admin_path %> </li>
+                                <li><%= link_to "LOGOUT", destroy_user_session_path, method: :delete %></li>
+                            <% elsif current_user.has_role? :employee %>
+                                <li><%= link_to "INTERVENTIONS", interventions_path %> </li>
+                                <li><%= link_to "ADMIN PANEL", rails_admin_path %> </li>
+                                <li><%= link_to "LOGOUT", destroy_user_session_path, method: :delete %></li>
+                            <% else %>
+                                <li><%= link_to "PROFILE", edit_user_registration_path %></li>
+                                <li><%= link_to "LOGOUT", destroy_user_session_path, method: :delete %></li>
+                            <% end %>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <div class="container">
+      <div class="heading-title heading-dotted text-center mb-20">
+          <h2>Request an intervention</h2>
+      </div>
+  </div>
+</body>
+
+

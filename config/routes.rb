@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :leads
   post '/index' => "leads#create"
   post '/quotes' => "quotes#create"
+  get '/recognition' => "recognition#index"
   get '/message' => "pages#message"
   get '/quotesconfirm' => "pages#quotesconfirm"
   get '/index' => "pages#index"
