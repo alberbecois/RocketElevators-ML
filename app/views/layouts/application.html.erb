@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rocket Elevators</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>  
+    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+    <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Open+Sans:400&subset=latin', type: 'text/css', 'data-turbolinks-track' => true %>
+    <%= favicon_link_tag asset_path('favicon.png') %>
+
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/slider.revolution/css/extralayers.css" rel="stylesheet" type="text/css" />
+		<link href="assets/plugins/slider.revolution/css/settings.css" rel="stylesheet" type="text/css" />
+
+    <!-- THEMES -->	
+    <%= stylesheet_link_tag "essentials" %>
+    <%= stylesheet_link_tag "layout" %>
+    <%= stylesheet_link_tag "header-1" %>
+    <%= stylesheet_link_tag "yellow" %>
+    <%= stylesheet_link_tag "david" %>
+
+		<!-- REVOLUTION SLIDER -->
+    
+    <script>var plugin_path = '/assets/plugins/';</script> 
+		<%= javascript_include_tag "plugins/jquery/jquery-3.3.1.min.js" %>
+    <%= javascript_include_tag "plugins/slider.revolution/js/jquery.themepunch.tools.min" %>
+		<%= javascript_include_tag "plugins/slider.revolution/js/jquery.themepunch.revolution.min.js" %>
+		<%= javascript_include_tag "view/demo.revolution_slider.js" %>
+		<%= javascript_include_tag "contact.js" %>
+  </head>
+
+  <body>
+    <div class="container">
+      <% if notice %><div class="alert alert-info"><%= notice %></div><% end %>
+      <% if alert %><div class="alert alert-warning"><%= alert %></div><% end %>
+    </div>
+    
+    <%= yield %>
+
+    <%= javascript_include_tag "scripts" %>
+    
+
+  </body>
+</html>

@@ -1,0 +1,102 @@
+<style>
+  textarea {
+      resize: none;
+      overflow: hidden;
+      width: 95%;
+      min-height: 100px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      border: 1px solid black;
+  }
+</style>
+
+<%= form_with(model: intervention, local: true) do |form| %>
+  <% if intervention.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(intervention.errors.count, "error") %> prohibited this intervention from being saved:</h2>
+
+      <ul>
+        <% intervention.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="container">
+
+  <%# LIST ALL CUSTOMERS %>
+    <div class="row form-group">
+        <div class="col-md-12 col-sm-8">
+          <%= form.label "Please select a customer", style: "color: black;" %>
+          <%= form.select(:customer_id, Customer.all.sanitized_order(:company_name, params[:asc]).collect {|c| [c.company_name, c.id]}, {prompt: "Select a customer"}, {class: 'col-md-12 col-sm-8'}) %>
+        </div>
+    </div>
+  <%# LIST RELATED BUILDINGS %>
+    <div class="row form-group">
+        <div class="col-md-12 col-sm-8">
+          <%= form.label "Please select a building", style: "color: black;" %>
+          <%= form.select(:building_id, Building.all.collect {|b| [b.id]}, {include_blank: ''}, {class: 'col-md-12 col-sm-8'}) %>
+        </div>
+    </div>
+
+  <%# LIST RELATED BATTERIES %>
+    <div class="row form-group">
+        <div class="col-md-12 col-sm-8">
+          <%= form.label "Please select a battery", style: "color: black;" %>
+          <%= form.select(:battery_id, Battery.all.collect {|z| [z.id]}, {include_blank: ''}, {class: 'col-md-12 col-sm-8'}) %>
+        </div>
+    </div>
+
+  <%# LIST RELATED COLUMNS %>
+    <div class="row form-group">
+        <div class="col-md-12 col-sm-8">
+          <%= form.label "Please select a column", style: "color: black;" %>
+          <%= form.select(:column_id, Column.all.collect {|y| [y.id]}, {include_blank: ''}, {class: 'col-md-12 col-sm-8'}) %>
+        </div>
+    </div>
+
+    <%# LIST RELATED ELEVATORS %>
+    <div class="row form-group">
+        <div class="col-md-12 col-sm-8">
+          <%= form.label "Please select an elevator", style: "color: black;" %>
+          <%= form.select(:elevator_id, Elevator.all.collect{|e| [e.id]}, {include_blank: ''}, {class: 'col-md-12 col-sm-8'}) %>
+        </div>
+    </div>
+
+    <%# LIST ALL EMPLOYEES %>
+    <div class="row form-group">
+        <div class="col-md-12 col-sm-8 col-sm-8">
+          <%= form.label "Please select an employee", style: "color: black;" %>
+          <%= form.select(:employee_id, Employee.all.collect{|t| ["#{t.firstName} #{t.name}", t.id]}, {include_blank: 'None'}, {class: 'col-md-12 col-sm-8 col-sm-8'}) %>
+        </div>
+    </div>
+
+    <%# DESCRIPTION %>
+    <script>
+      function auto_grow(element) {
+        element.style.height = "5px";
+        element.style.height = (element.scrollHeight)+"px";
+      }
+    </script>
+
+    <div class="row form-group">
+      <div class="col-md-12 col-sm-8">
+        <%= form.label "Please describe the nature of the intervention required", style: "color: black;" %>
+        <textarea oninput="auto_grow(this)" class="mt-10" name="intervention[report]"></textarea>
+      </div>
+    </div>
+
+  <%# SUBMIT BUTTON %>
+    <%= recaptcha_v3(action: 'submit') %>
+    <div class="row">
+      <div class="col-md-12 col-sm-8">
+        <div class="actions "> 
+          <%= button_tag(type: 'submit', class: "btn-colored-message") do %> CREATE INTERVENTION <% end %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+<% end %>

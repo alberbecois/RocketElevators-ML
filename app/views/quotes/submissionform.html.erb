@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+    <title>Rocket Elevators</title>
+    <meta name="description" content="Projet Genesis" />
+    <meta name="Author" content="David Amyot" />
+
+    <!-- mobile settings -->
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
+
+</head>
+
+<body class="smoothscroll enable-animation pagesubmissionForm">
+    <div id="wrapper">
+
+        <div id="header" class="navbar-toggleable-md sticky header-md clearfix">
+
+            <!-- TOP NAV -->
+            <header id="topNav">
+                <div class="container">
+
+                    <!-- Mobile Menu Button -->
+                    <button class="btn btn-mobile" data-toggle="collapse" data-target=".nav-main-collapse">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Logo -->
+                        <%= link_to index_path, class: "logo float-left" do %><%= image_tag("logo.jpeg", alt: "Rocket Elevators Logo")%><% end %>
+
+                    <div class="navbar-collapse collapse float-right nav-main-collapse submenu-dark">
+                        <nav class="nav-main">
+
+                            <ul id="topMain" class="nav nav-pills nav-main nav-onepage">
+                            <!-- HOME -->
+                                <li class="active"> <%= link_to 'HOME', index_path %> </li>
+                            <!-- SERVICES -->
+                                <li> <%= link_to 'SERVICES', index_path(anchor: "services") %> </li>
+                            <!-- PORTFOLIO -->
+                                <li class="nav-item dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> PORTFOLIO </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="dropdown-item"><%= link_to 'Overview', index_path(anchor: "portfolio") %></li>
+                                        <li class="dropdown-item divider"></li>
+                                        <li class="dropdown-item"><%= link_to 'Residential Projects', residential_path %></li>
+                                        <li class="dropdown-item divider"></li>
+                                        <li class="dropdown-item"><%= link_to 'Corporate Projects', corporate_path %></li>
+                                    </ul>
+                                </li>
+                            <!-- NEWS -->
+                                <li> <%= link_to 'NEWS', index_path(anchor: "news") %> </li>
+                            <!-- CLIENTS -->
+                                <li> <%= link_to 'CLIENTS', index_path(anchor: "clients") %> </li>
+                            <!-- SUBMISSION FORM -->
+                                <li> <%= link_to 'SUBMISSION', anchor: "submission" %> </li>
+                            <!-- CONTACT -->
+                                <li> <%= link_to 'CONTACT', anchor: "contact" %> </li>
+                            <!-- CONNECT -->
+                                <% if !current_user %>
+                                    <li><%= link_to "LOGIN", new_user_session_path %></li>
+                                    <li><%= link_to "SIGN UP", new_user_registration_path %></li>
+                                <% elsif current_user.has_role? :admin %>
+                                    <li><%= link_to "INTERVENTIONS", interventions_path %> </li>
+                                    <li><%= link_to "ADMIN PANEL", rails_admin_path %> </li>
+                                    <li><%= link_to "LOGOUT", destroy_user_session_path, method: :delete %></li>
+                                <% elsif current_user.has_role? :employee %>
+                                    <li><%= link_to "INTERVENTIONS", interventions_path %> </li>
+                                    <li><%= link_to "ADMIN PANEL", rails_admin_path %> </li>
+                                    <li><%= link_to "LOGOUT", destroy_user_session_path, method: :delete %></li>
+                                <% else %>
+                                    <li><%= link_to "PROFILE", edit_user_registration_path %></li>
+                                    <li><%= link_to "LOGOUT", destroy_user_session_path, method: :delete %></li>
+                                <% end %>
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+        </div>
+
+        <section class="parallax parallax-1" style="background-image: url(<%= asset_path "ribbon.jpeg" %>)">
+            <div class="overlay dark-5"></div>
+
+            <div class="container">
+
+                <div class="text-center">
+                    <h2 class="fs-40 fw-300"><i><b>Rocket Elevators</i></b>, delivering the highest quality since 1982.</h2>
+                    <a class="btn btn-warning btn-lg btn-colored-primary" href="#contact">CONTACT US &nbsp; <i class="fa fa-angle-right"></i></a>
+                </div>
+
+
+            </div>
+        </section>
+
+<!-- FORM SECTION -->
+
+        <section id="submission">
+            <div class="container">
+            
+                <div class="row">
+
+            <!-- 
+                Creating the navigation tabs on the left side of the form with an onClick event to  make it load the specific questions from that tab 
+            -->
+                <div class="col-md-3 col-sm-3">
+                    <ul class="nav nav-tabs nav-stacked flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#tabResidential" onclick="loadElementsInTab('tabResidential');"  data-toggle="tab">
+                                Residential Form
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#tabCommercial" onclick="loadElementsInTab('tabCommercial');"  data-toggle="tab">
+                                Commercial Form
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#tabCorporate" onclick="loadElementsInTab('tabCorporate');"  data-toggle="tab">
+                                Corporate Form
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#tabHybrid"  onclick="loadElementsInTab('tabHybrid');" data-toggle="tab">
+                                Hybrid Form
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            
+            <!-- 
+                Using jQuery, detachibng the rows from the specified IDS and injecting it into the selected tabs.
+             -->
+                <form method="post" action="/quotes" id="formreceive">
+                    <div id="formElementsToInjectInTabs" style="display:none;">
+
+                    <!-- Number of Floors-->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="mr-0" for="numberOfFloors">The number of floors contained in the building:</label>
+                            </div>
+                            
+                            <div class="col-md-4 mt-10">
+                                <div class="slider-wrapper info-slider">
+                                    <div class="sliderNumber50"></div> 
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 mt-0 pb-5">
+                                <input type="text" style="margin-top:-8px;" name="quotes[NumFLoors]" id="numberOfFloors" value="0" min="0" max="1000" class="form-control stepper sliderValue50 calculateQuoteOnChange" />
+                            </div> 
+                        </div>
+
+                    <!-- Number of Basements-->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="mr-0" for="numberOfBasements">The number of basements in the building:</label>
+                            </div>
+                            
+                            <div class="col-md-4 mt-10">
+                                <div class="slider-wrapper info-slider">
+                                    <div class="sliderNumber20"></div> 
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 mt-0 pb-5">
+                                <input type="text" style="margin-top:-8px;" name="quotes[NumBasement]" id="numberOfBasements" value="0" min="0" max="1000" class="form-control stepper sliderNumber20 calculateQuoteOnChange" />
+                            </div>
+                        </div>
+
+                     <!-- Number of Aparments -->
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="mr-0" for="numberOfApartments">The number of apartments in the building:</label>
+                            </div>
+                            
+                            <div class="col-md-4 mt-10">
+                                <div class="slider-wrapper info-slider">
+                                    <div class="sliderNumber200"></div> 
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 mt-0 pb-5">
+                                <input type="text" style="margin-top:-8px;" name="quotes[NumAppartment]" id="numberOfApartments" value="0" min="0" max="1000" class="form-control required stepper sliderNumber200 calculateQuoteOnChange" />
+                            </div>
+                        </div>
+
+                    <!-- Number of Parking Spaces -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="mr-0" for="numberOfParking">The number of parking spaces available:</label>
+                            </div>
+                            
+                            <div class="col-md-4 mt-10">
+                                <div class="slider-wrapper info-slider">
+                                    <div class="sliderNumber500"></div> 
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 mt-0 pb-5">
+                                <input type="text" style="margin-top:-8px;" name="quotes[NumParking]" id="numberOfParking" value="0" min="0" max="1000" class="form-control stepper sliderNumber500 calculateQuoteOnChange" />
+                            </div>
+                        </div>
+
+                    <!-- Number of Elevator Cages Desired By Customer -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="mr-0" for="numberOfElevatorsDesired">The number of elevator cages desired:</label>
+                            </div>
+                            
+                            <div class="col-md-4 mt-10">
+                                <div class="slider-wrapper info-slider">
+                                    <div class="sliderNumber50"></div> 
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 mt-0 pb-5">
+                                <input type="text" style="margin-top:-8px;" name="quotes[NumElevatorsDesired]" id="numberOfElevatorsDesired" value="0" min="0" max="1000" class="form-control stepper sliderValue50 calculateQuoteOnChange" />
+                            </div>
+                        </div>
+
+                    <!-- Number of Tenant Companies -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="mr-0" for="numberOfTenantCompanies">The number of separate tenant companies:</label>
+                            </div>
+                            
+                            <div class="col-md-4 mt-10">
+                                <div class="slider-wrapper info-slider">
+                                    <div class="sliderNumber10"></div> 
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 mt-0 pb-5">
+                                <input type="text" style="margin-top:-8px;" id="numberOfTenantCompanies" value="0" min="0" max="1000" class="form-control stepper sliderValue10 calculateQuoteOnChange" />
+                            </div>
+                        </div>
+
+                    <!-- Number Of Occupants Per Floor -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="mr-0" for="numberOfOccupants">The number of occupants per floor:</label>
+                            </div>
+                            
+                            <div class="col-md-4 mt-10">
+                                <div class="slider-wrapper info-slider">
+                                    <div class="sliderNumber500"></div> 
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 mt-0 pb-5">
+                                <input type="text" style="margin-top:-8px;" name="quotes[NumOccupantsPerFloor]" id="numberOfOccupants" value="0" min="0" max="1000" class="form-control stepper sliderNumber500 calculateQuoteOnChange" />
+                            </div>
+                        </div>
+
+                    <!-- Number of Businesses -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="mr-0" for="numberOfBusinesses">The number of distinct businesses:</label>
+                            </div>
+                            
+                            <div class="col-md-4 mt-10">
+                                <div class="slider-wrapper info-slider">
+                                    <div class="sliderNumber10"></div> 
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 mt-0 pb-5">
+                                <input type="text" style="margin-top:-8px;" name="quotes[NumBusiness]" id="numberOfBusinesses" value="0" min="0" max="1000" class="form-control stepper sliderValue10 calculateQuoteOnChange" />
+                            </div>
+                        </div>
+                        
+                    <!-- Number of Hours of Activity -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="mr-0" for="numberOfHoursOfActivity">The number of hours of activity of the building:</label>
+                            </div>
+                            
+                            <div class="col-md-4 mt-10">
+                                <div class="slider-wrapper info-slider">
+                                    <div class="sliderNumber24 sliderMax-50"></div> 
+                                </div>
+                            </div>
+
+                            <div class="col-md-2 mt-0 pb-5">
+                                <input type="text" style="margin-top:-8px;" id="numberOfHoursOfActivity" value="0" min="0" max="1000" class="form-control stepper sliderNumber24 sliderMax-50 calculateQuoteOnChange" />
+                            </div>
+                        </div>
+
+                    <!-- Job Quality Radio Buttons -->
+                        <div class="row">
+                            <hr class="col-md-8 hr-color hr-danger mt-20 mb-20">
+                            <div class="col-md-4 text-center">
+                                <label class="radio">
+                                    <input type="radio" id="jobQualityStandard" name="quotes[JobQuality]" class="calculateQuoteOnChange" />
+                                    <i></i> Standard
+                                </label>
+                            </div>
+
+                            <div class="col-md-4 text-center">
+                                <label class="radio">
+                                    <input type="radio" id="jobQualityPremium" name="quotes[JobQuality]" class="calculateQuoteOnChange" />
+                                    <i></i> Premium
+                                </label>
+                            </div>
+
+                            <div class="col-md-4 text-center">
+                                <label class="radio">
+                                    <input type="radio" id="jobQualityExcelium" name="quotes[JobQuality]" class="calculateQuoteOnChange" />
+                                    <i></i> Excelium
+                                </label>
+                            </div>
+                        </div>
+
+                    <!-- Auto-Filled Javascript Results -->
+                        <div class="row countToCSSOnly-lg text-center">
+                            <div class="col-xl-3 col-md-6 col-sm-12">
+                                <span class="countToCSSOnly" id="totalNumberOfElevators" data-speed="3000" style="color:rgb(0, 0, 0)">0</span>
+                                <input  name="quotes[NumELevatorEstimated]" type="hidden" />
+                                <h4>Estimated Elevators</h4>
+                            </div>
+                        
+                            <div class="col-xl-3 col-md-6 col-sm-12">
+                                <span class="countToCSSOnly" data-speed="3000" style="color:rgb(0, 0, 0)"><span id="subTotal">$0.00</span></span>
+                                <input  name="quotes[SubTotal]" type="hidden" />
+                               <h4>Subtotal</h4>
+                            </div>
+                        
+                            <div class="col-xl-3 col-md-6 col-sm-12">
+                                <span class="countToCSSOnly" data-speed="3000" style="color:rgb(0, 0, 0)"><span id="installationFees">$0.00</span></span>
+                                <input  name="quotes[InstallFee]" type="hidden" />
+                                <h4>Install Fees</h4>
+                            </div>
+                        
+                            <div class="col-xl-3 col-md-6 col-sm-12">
+                                <span class="countToCSSOnly" data-speed="3000" style="color:rgb(0, 0, 0)"><span id="totalPrice">$0.00</span></span>
+                                <input  name="quotes[TotalPrice]" type="hidden" />
+
+                                <h4>Total Price</h4>
+                            </div>
+                            <input type="submit" style="display:none" />
+                            
+                        </div>
+
+                        </form>
+
+                        <% if @userIsLogged%>
+                        <%= recaptcha_v3(action: 'submit') %>
+                            <div class="row actions">
+                                <div class="col-md-12 pt-30">
+                                    <button type="submit" class="btn-submitform" id="submitform" value="submit"><i class="fa fa-check"></i> SUBMIT FORM </button>
+                                </div>
+                            </div>
+                        <%end%>
+                        
+                    
+                    <!-- 
+                        <div class="row text-center">
+                            <div class="col-12">
+                                <div id="errorContainer"></div>
+                            </div>
+                        </div> 
+                    -->
+
+                    </div>
+                    <div class="col-md-9 col-sm-9">
+                        <form method="post" action="/quotes" id="formreceive">
+                         <div class="tab-content tab-stacked nav-alternate">
+
+                        <!-- THE RESIDENTIAL FORM -->
+                            <div id="tabResidential" class="tab-pane active">
+                                <div class="card card-default">
+                                    <div class="card-heading card-heading-transparent">
+                                        <h2 class="card-title bold">Residential Form</h2>
+                                    </div>
+
+                                    <div class="card-block">
+                                    
+
+                                    </div>       
+                                    
+                                    
+                                </div>
+                            </div>
+
+                          
+                        <!-- THE COMMERCIAL FORM -->
+                            <div id="tabCommercial" class="tab-pane">
+                                <div class="card card-default">
+                                    <div class="card-heading card-heading-transparent">
+                                        <h2 class="card-title bold">Commercial Form</h2>
+                                    </div>
+
+                                    <div class="card-block">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        <!-- THE CORPORATE FORM -->
+                            <div id="tabCorporate" class="tab-pane">
+                                <div class="card card-default">
+                                    <div class="card-heading card-heading-transparent">
+                                        <h2 class="card-title bold">Corporate Form</h2>
+                                    </div>
+
+                                    <div class="card-block">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        <!-- THE HYBRID FORM -->
+                            <div id="tabHybrid" class="tab-pane">
+                                <div class="card card-default">
+                                    <div class="card-heading card-heading-transparent">
+                                        <h2 class="card-title bold">Hybrid Form</h2>
+                                    </div>
+
+                                    <div class="card-block">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        </form>
+                     </div>
+                </div>
+            </div>
+        </section>
+
+<!-- CONTACT SECTION -->
+
+
+
+<section id="contact">
+	<div class="container">
+		<header class="text-center">
+			<h2>Contact Us</h2>
+			<hr />
+		</header>
+
+		<div class="row">
+
+			<!-- FORM -->
+			<div class="col-md-8 col-sm-8">
+				<h3>Feel free to write to us for anything!</h3>
+
+				<!-- Alert Success -->
+				<div id="alert_success" class="alert alert-success mb-30">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>Thank You!</strong> Your message successfully sent!
+				</div><!-- /Alert Success -->
+
+				<!-- Alert Failed -->
+				<div id="alert_failed" class="alert alert-danger mb-30">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>[SMTP] Error!</strong> Internal server error!
+				</div><!-- /Alert Failed -->
+
+				<!-- Alert Mandatory -->
+				<div id="alert_mandatory" class="alert alert-danger mb-30">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>Sorry!</strong> You need to complete all mandatory (*) fields!
+				</div><!-- /Alert Mandatory -->
+
+	<!-- CONTACT TEXT BOXES -->
+				<form action="/leads" method="post" enctype="multipart/form-data" id="formreceive">
+					<div id="formElementsToInjectInTabs">
+					
+						<input type="hidden" name="action" value="contact_send" />
+						<div class="row">
+
+						<!-- FULL NAME -->
+							<div class="col-md-4">
+								<label for="leads:name">Full Name *</label>
+								<input required type="text" value="" class="form-control" name="leads[name][required]" id="leads:name">
+							</div>
+
+						<!-- PHONE NUMBER -->
+							<div class="col-md-4">
+								<label for="leads:phone">Phone Number *</label>
+								<input required type="tel" value="" pattern="\d{3}[\-]\d{3}[\-]\d{4}" required class="form-control" name="leads[phone]" id="leads:phone">
+							</div>
+
+						<!-- E-MAIL ADDRESS -->
+							<div class="col-md-4">
+								<label for="leads:email">E-mail Address *</label>
+								<input required type="email" value="" class="form-control" name="leads[email][required]" id="leads:email">
+							</div>
+						</div>
+
+						<div class="row">
+								
+						<!-- BUSINESS NAME -->
+							<div class="col-md-4">
+								<label for="leads:businessname">Business Name</label>
+								<input type="text" value="" class="form-control" name="leads[businessname]" id="leads:businessname">
+							</div>
+						
+						<!-- PROJECT NAME -->
+							<div class="col-md-4">
+								<label for="leads:projectname">Project Name</label>
+								<input type="text" value="" class="form-control" name="leads[projectname][required]" id="leads:projectname">
+							</div>
+
+						<!-- DEPARTMENT -->
+							<div class="col-md-4">
+								<label for="leads_department">Department *</label>
+								<select required class="form-control pointer" name="leads[department]">
+									<option value="">--- Select ---</option>
+									<option value="Billing">Billing</option>
+									<option value="Residential">Residential</option>
+									<option value="Commercial">Commercial</option>
+									<option value="Corporate">Corporate</option>
+									<option value="Hybrid">Hybrid</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="row">
+
+						<!-- PROJECT DESCRIPTION -->
+							<div class="col-md-6">
+								<label for="leads:description">Project Description</label>
+								<textarea maxlength="10000" rows="4" class="form-control" name="leads[description]" id="leads:description"></textarea>
+							</div>
+
+						<!-- MESSAGE  -->
+							<div class="col-md-6">
+								<label for="leads:message">Message *</label>
+								<textarea required maxlength="10000" rows="4" class="form-control" name="leads[message]" id="leads:message"></textarea>
+							</div>
+						</div>
+
+						<!-- FILE ATTACHMENT -->
+						<div class="row">
+							<div class="col-md-12">
+								<label for="contact:attachment">File Attachment</label>
+			
+
+								<!-- custom file upload -->
+								<input class="custom-file-upload" type="file" id="file" name="leads[attachment]" id="leads:attachment" data-btn-text="Select a File" />
+								<small class="text-muted block">Max file size: 10Mb (zip/pdf/jpg/png)</small>
+							</div>
+
+						</div>
+				
+					</div>
+				</form>		
+				<!-- SEND MESSAGE -->
+					<div class="row actions">
+                    <%= recaptcha_v3(action: 'submit') %>
+						<div class="col-md-12">
+							<button type="submit" class="btn-colored-message"><i class="fa fa-check"></i> SEND MESSAGE</button>
+						</div>
+					</div>
+			</div>	
+		
+			<!-- INFO -->
+			<div class="col-md-4 col-sm-4">
+
+				<h2>Visit Us</h2>
+
+			<!-- GOOGLE MAP EMBED-->	
+				<div class="mapouter"><div class="gmap_canvas"><iframe width="400" height="430" id="gmap_canvas" src="https://maps.google.com/maps?q=418-725%20Boulevard%20Lebourgneuf%2C%20Qu%C3%A9bec%2C%20QC%20G2J%200C4&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div><style>.mapouter{position:relative;text-align:right;height:430px;width:400px;}.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:400px;}</style></div>
+				<hr />
+
+			<!-- CODEBOXX CONTACT INFO-->
+				<p>
+					<span class="block w-400"><strong><i class="fa fa-map-marker"></i> Address:</strong> 418-725 Blvd. Lebourgneuf, QC, CA</span>
+					<span class="block"><strong><i class="fa fa-phone"></i> Phone:</strong> <a href="tel:581-701-0303">(581) 701-0303</a></span>
+					<span class="block"><strong><i class="fa fa-envelope"></i> Email:</strong> <a href="mailto:info@codeboxx.biz">info@codeboxx.biz</a></span>
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+        <!-- FOOTER SECTION -->
+		
+			<footer id="footer">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4" style="padding-right: 60px;padding-left: 60px;">
+							<%= image_tag("logo.jpeg", class: "img-footer-logo", alt: "Rocket Elevator's Logo") %>
+						</div>
+						<div class="col-md-8 mt-4 justify">
+							<!-- Small Description -->
+							<p style="border-left: 1.4px solid #000000;height: 5em;padding-right: 60px;padding-left: 60px;"> 
+								Our clients are at the heart of what we do. Our client care advisors are appreciated by our clients all over the world. 
+								Every day, our counsellors strive to meet our clients’ requirements in the best possible manner. Our international 
+								offices allow us to provide answers to your queries in real time, irrespective of your current geographical location.
+							</p>
+						</div>
+					</div>
+
+            <div class="copyright p-15">
+                <div class="container">
+                    <ul class="float-right m-0 list-inline mobile-block">
+                        <li> <%= link_to 'Terms & Conditions', tos_path %></li>
+                        <li>&bull;</li>
+                        <li> <%= link_to 'Privacy', privacy_path %></li>
+                    </ul>
+                    &copy; All Rights Reserved, Company LTD
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- SCROLL TO TOP -->
+    <a href="#" id="toTop"></a>
+
+
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <div class="inner">
+            <span class="loader"></span>
+        </div>
+    </div><!-- /PRELOADER -->
+
+    <!-- JAVASCRIPT FILES -->
+    <%= javascript_include_tag "plugins/jquery/jquery-3.3.1.min" %>
+    <%= javascript_include_tag "plugins/jquery/jquery.formatCurrency-1.4.0" %>
+
+    
+
+    <!-- THE JQUERY FORM -->
+    <%= javascript_include_tag "submissionform" %>
+
+</body>
+</html>
+

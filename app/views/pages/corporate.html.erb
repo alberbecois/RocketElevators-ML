@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Rocket Elevators</title>
+		<meta name="description" content="Projet Genesis" />
+		<meta name="Author" content="David Amyot" />
+	</head>
+
+	<body class="smoothscroll enable-animation">
+
+
+			<div id="header" class="navbar-toggleable-md sticky header-md clearfix">
+
+				<!-- TOP NAV -->
+				<header id="topNav">
+					<div class="container">
+
+						<!-- Mobile Menu Button -->
+						<button class="btn btn-mobile" data-toggle="collapse" data-target=".nav-main-collapse">
+							<i class="fa fa-bars"></i>
+						</button>
+
+						<!-- Logo -->
+                        <%= link_to index_path, class: "logo float-left" do %><%= image_tag("logo.jpeg", alt: "Rocket Elevators Logo")%><% end %>
+
+
+						<div class="navbar-collapse collapse float-right nav-main-collapse submenu-dark">
+							<nav class="nav-main">
+
+                            <ul id="topMain" class="nav nav-pills nav-main nav-onepage">
+                            <!-- HOME -->
+                                <li class="active"> <%= link_to 'HOME', index_path %> </li>
+                            <!-- SERVICES -->
+                                <li> <%= link_to 'SERVICES', index_path(anchor: "services") %> </li>
+                            <!-- PORTFOLIO -->
+                                <li class="nav-item dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> PORTFOLIO </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="dropdown-item"><%= link_to 'Overview', index_path(anchor: "portfolio") %></li>
+                                        <li class="dropdown-item divider"></li>
+                                        <li class="dropdown-item"><%= link_to 'Residential Projects', residential_path %></li>
+                                        <li class="dropdown-item divider"></li>
+                                        <li class="dropdown-item"><%= link_to 'Corporate Projects', anchor: "portfolio_corporate" %></li>
+                                    </ul>
+                                </li>
+                            <!-- NEWS -->
+                                <li> <%= link_to 'NEWS', index_path(anchor: "news") %> </li>
+                            <!-- CLIENTS -->
+                                <li> <%= link_to 'CLIENTS', index_path(anchor: "clients") %> </li>
+                            <!-- SUBMISSION FORM -->
+								<li> <%= link_to 'SUBMISSION', submissionform_path %></li>
+                            <!-- CONTACT -->
+                                <li> <%= link_to 'CONTACT', anchor: "contact" %> </li>
+							<!-- CONNECT -->
+								<% if !current_user %>
+									<li><%= link_to "LOGIN", new_user_session_path %></li>
+									<li><%= link_to "SIGN UP", new_user_registration_path %></li>
+								<% elsif current_user.has_role? :admin %>
+									<li><%= link_to "INTERVENTIONS", interventions_path %> </li>
+									<li><%= link_to "ADMIN PANEL", rails_admin_path %> </li>
+									<li><%= link_to "LOGOUT", destroy_user_session_path, method: :delete %></li>
+								<% elsif current_user.has_role? :employee %>
+									<li><%= link_to "INTERVENTIONS", interventions_path %> </li>
+									<li><%= link_to "ADMIN PANEL", rails_admin_path %> </li>
+									<li><%= link_to "LOGOUT", destroy_user_session_path, method: :delete %></li>
+								<% else %>
+									<li><%= link_to "PROFILE", edit_user_registration_path %></li>
+									<li><%= link_to "LOGOUT", destroy_user_session_path, method: :delete %></li>
+								<% end %>
+                            </ul>
+                        </nav>
+						</div>
+
+					</div>
+				</header>
+			</div>
+
+<!-- RIBBON -->
+			<section class="parallax parallax-1" style="background-image: url(<%= asset_path "ribbon.jpeg" %>)">
+				<div class="overlay dark-5"></div>
+
+				<div class="container">
+
+					<div class="text-center">
+						<h2 class="fs-40 fw-300"><i><b>Rocket Elevators</i></b>, delivering the highest quality since 1982.</h2>
+						<a class="btn btn-warning btn-lg btn-colored-primary" href="#contact">CONTACT US &nbsp; <i class="fa fa-angle-right"></i></a>
+						&nbsp; OR &nbsp; 
+						<%= link_to submissionform_path, class: "btn btn-default btn-lg btn-colored-secondary" do %> REQUEST A SUBMISSION &nbsp; <i class="fa fa-angle-right"></i> <% end %>
+					</div>
+
+
+				</div>
+			</section>
+
+
+<!-- PORTFOLIO -->
+
+			<section id="portfolio_corporate">
+				<div class="container">
+
+					<div class="heading-title heading-dotted text-center">
+						<h2>All Our Corporate Projects</h2>
+					</div>
+				</div>
+
+						<div class="row mix-grid">
+
+        <!-- CORPORATE PROJECTS SECTION -->
+
+                    <!-- CORPORATE PROJECT #1 -->
+                        <div class="col-md-3 col-sm-3 mix corporate-projects">
+                            <div class="item-box">
+                                <figure>
+                                    <span class="item-hover">
+                                        <span class="overlay dark-5"></span>
+                                        <span class="inner">
+                                            <a class="ico-rounded lightbox" href="assets/images/corp-elevator1.jpeg" data-plugin-options='{"type":"image"}'>
+                                                <span class="fa fa-plus fs-20"></span>
+                                            </a>
+                                        </span>
+                                    </span>
+                                    <%= image_tag("corp-elevator1.jpeg", class: "img-fluid h-200", width: "600", height: "399", alt: "Picture of corporate project #1") %>
+                                </figure>
+                                <div class="item-box-desc">
+                                    <h3>The One World Trade Center</h3>
+                                    <ul class="list-inline categories m-0">
+                                        <li><a data-filter="corporate-projects" class="filter" href="#corporate-projects">Corporate Projects</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    <!-- CORPORATE PROJECT #2 -->
+                        <div class="col-md-3 col-sm-3 mix corporate-projects">
+                            <div class="item-box">
+                                <figure>
+                                    <span class="item-hover">
+                                        <span class="overlay dark-5"></span>
+                                        <span class="inner">
+                                            <a class="ico-rounded lightbox" href="assets/images/corp-elevator2.jpeg" data-plugin-options='{"type":"image"}'>
+                                                <span class="fa fa-plus fs-20"></span>
+                                            </a> 
+                                        </span>
+                                    </span>
+                                        <%= image_tag("corp-elevator2.jpeg", class: "img-fluid h-200", width: "600", height: "399", alt: "Picture of corporate project #2") %>
+                                </figure>
+                                <div class="item-box-desc">
+                                    <h3>The Burj Khalifa</h3>
+                                    <ul class="list-inline categories m-0">
+                                        <li><a data-filter="corporate-projects" class="filter" href="#corporate-projects">Corporate Projects</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    <!-- CORPORATE PROJECT #3 -->
+                        <div class="col-md-3 col-sm-3 mix corporate-projects">
+                            <div class="item-box">
+                                <figure>
+                                    <span class="item-hover">
+                                        <span class="overlay dark-5"></span>
+                                        <span class="inner">
+                                            <a class="ico-rounded lightbox" href="assets/images/corp-elevator3.jpeg" data-plugin-options='{"type":"image"}'>
+                                                <span class="fa fa-plus fs-20"></span>
+                                            </a>
+                                        </span>
+                                    </span>
+                                        <%= image_tag("corp-elevator3.jpeg", class: "img-fluid h-200", width: "600", height: "399", alt: "Picture of corporate project #3") %>
+                                </figure>
+                                <div class="item-box-desc">
+                                    <h3>The Shanghai Tower</h3>
+                                    <ul class="list-inline categories m-0">
+                                        <li><a data-filter="corporate-projects" class="filter" href="#corporate-projects">Corporate Projects</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    <!-- CORPORATE PROJECT #4 -->
+                        <div class="col-md-3 col-sm-3 mix corporate-projects">
+                            <div class="item-box">
+                                <figure>
+                                    <span class="item-hover">
+                                        <span class="overlay dark-5"></span>
+                                        <span class="inner">
+                                            <a class="ico-rounded lightbox" href="assets/images/corp-elevator4.jpeg" data-plugin-options='{"type":"image"}'>
+                                                <span class="fa fa-plus fs-20"></span>
+                                            </a>
+                                        </span>
+                                    </span>
+                                        <%= image_tag("corp-elevator4.jpeg", class: "img-fluid h-200", width: "600", height: "399", alt: "Picture of corporate project #4") %>
+                                </figure>
+                                <div class="item-box-desc">
+                                    <h3>The Lotte Tower</h3>
+                                    <ul class="list-inline categories m-0">
+                                        <li><a data-filter="corporate-projects" class="filter" href="#corporate-projects">Corporate Projects</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+					</div>
+			</section>
+
+<!-- CONTACT SECTION -->
+
+
+
+<section id="contact">
+	<div class="container">
+		<header class="text-center">
+			<h2>Contact Us</h2>
+			<hr />
+		</header>
+
+		<div class="row">
+
+			<!-- FORM -->
+			<div class="col-md-8 col-sm-8">
+				<h3>Feel free to write to us for anything!</h3>
+
+				<!-- Alert Success -->
+				<div id="alert_success" class="alert alert-success mb-30">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>Thank You!</strong> Your message successfully sent!
+				</div><!-- /Alert Success -->
+
+				<!-- Alert Failed -->
+				<div id="alert_failed" class="alert alert-danger mb-30">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>[SMTP] Error!</strong> Internal server error!
+				</div><!-- /Alert Failed -->
+
+				<!-- Alert Mandatory -->
+				<div id="alert_mandatory" class="alert alert-danger mb-30">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					<strong>Sorry!</strong> You need to complete all mandatory (*) fields!
+				</div><!-- /Alert Mandatory -->
+
+	<!-- CONTACT TEXT BOXES -->
+				<form action="/leads" method="post" enctype="multipart/form-data" id="formreceive">
+					<div id="formElementsToInjectInTabs">
+					
+						<input type="hidden" name="action" value="contact_send" />
+						<div class="row">
+
+						<!-- FULL NAME -->
+							<div class="col-md-4">
+								<label for="leads:name">Full Name *</label>
+								<input required type="text" value="" class="form-control" name="leads[name][required]" id="leads:name">
+							</div>
+
+						<!-- PHONE NUMBER -->
+							<div class="col-md-4">
+								<label for="leads:phone">Phone Number *</label>
+								<input required type="tel" value="" pattern="\d{3}[\-]\d{3}[\-]\d{4}" required class="form-control" name="leads[phone]" id="leads:phone">
+							</div>
+
+						<!-- E-MAIL ADDRESS -->
+							<div class="col-md-4">
+								<label for="leads:email">E-mail Address *</label>
+								<input required type="email" value="" class="form-control" name="leads[email][required]" id="leads:email">
+							</div>
+						</div>
+
+						<div class="row">
+								
+						<!-- BUSINESS NAME -->
+							<div class="col-md-4">
+								<label for="leads:businessname">Business Name</label>
+								<input type="text" value="" class="form-control" name="leads[businessname]" id="leads:businessname">
+							</div>
+						
+						<!-- PROJECT NAME -->
+							<div class="col-md-4">
+								<label for="leads:projectname">Project Name</label>
+								<input type="text" value="" class="form-control" name="leads[projectname][required]" id="leads:projectname">
+							</div>
+
+						<!-- DEPARTMENT -->
+							<div class="col-md-4">
+								<label for="leads_department">Department *</label>
+								<select required class="form-control pointer" name="leads[department]">
+									<option value="">--- Select ---</option>
+									<option value="Billing">Billing</option>
+									<option value="Residential">Residential</option>
+									<option value="Commercial">Commercial</option>
+									<option value="Corporate">Corporate</option>
+									<option value="Hybrid">Hybrid</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="row">
+
+						<!-- PROJECT DESCRIPTION -->
+							<div class="col-md-6">
+								<label for="leads:description">Project Description</label>
+								<textarea maxlength="10000" rows="4" class="form-control" name="leads[description]" id="leads:description"></textarea>
+							</div>
+
+						<!-- MESSAGE  -->
+							<div class="col-md-6">
+								<label for="leads:message">Message *</label>
+								<textarea required maxlength="10000" rows="4" class="form-control" name="leads[message]" id="leads:message"></textarea>
+							</div>
+						</div>
+
+						<!-- FILE ATTACHMENT -->
+						<div class="row">
+							<div class="col-md-12">
+								<label for="contact:attachment">File Attachment</label>
+			
+
+								<!-- custom file upload -->
+								<input class="custom-file-upload" type="file" id="file" name="leads[attachment]" id="leads:attachment" data-btn-text="Select a File" />
+								<small class="text-muted block">Max file size: 10Mb (zip/pdf/jpg/png)</small>
+							</div>
+
+						</div>
+				
+					</div>
+				</form>		
+				<!-- SEND MESSAGE -->
+					<%= recaptcha_v3(action: 'submit') %>
+					
+					<div class="row">
+						<div class="col-md-12">
+							<button type="submit" id="submitform" class="btn-colored-message"><i class="fa fa-check"></i> SEND MESSAGE</button>
+						</div>
+						<script type="text/javascript">
+							$(document).ready(function() {
+								$("#submitform").click(function() {
+									$("#formreceive").submit();
+								});
+							});
+						</script>
+					</div>
+			</div>	
+		
+			<!-- INFO -->
+			<div class="col-md-4 col-sm-4">
+
+				<h2>Visit Us</h2>
+
+			<!-- GOOGLE MAP EMBED-->	
+				<div class="mapouter"><div class="gmap_canvas"><iframe width="400" height="430" id="gmap_canvas" src="https://maps.google.com/maps?q=418-725%20Boulevard%20Lebourgneuf%2C%20Qu%C3%A9bec%2C%20QC%20G2J%200C4&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div><style>.mapouter{position:relative;text-align:right;height:430px;width:400px;}.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:400px;}</style></div>
+				<hr />
+
+			<!-- CODEBOXX CONTACT INFO-->
+				<p>
+					<span class="block w-400"><strong><i class="fa fa-map-marker"></i> Address:</strong> 418-725 Blvd. Lebourgneuf, QC, CA</span>
+					<span class="block"><strong><i class="fa fa-phone"></i> Phone:</strong> <a href="tel:581-701-0303">(581) 701-0303</a></span>
+					<span class="block"><strong><i class="fa fa-envelope"></i> Email:</strong> <a href="mailto:info@codeboxx.biz">info@codeboxx.biz</a></span>
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+			<!-- FOOTER SECTION -->
+		
+			<footer id="footer">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-4" style="padding-right: 60px;padding-left: 60px;">
+							<%= image_tag("logo.jpeg", class: "img-footer-logo", alt: "Rocket Elevator's Logo") %>
+						</div>
+						<div class="col-md-8 mt-4 justify">
+							<!-- Small Description -->
+							<p style="border-left: 1.4px solid #000000;height: 5em;padding-right: 60px;padding-left: 60px;"> 
+								Our clients are at the heart of what we do. Our client care advisors are appreciated by our clients all over the world. 
+								Every day, our counsellors strive to meet our clients’ requirements in the best possible manner. Our international 
+								offices allow us to provide answers to your queries in real time, irrespective of your current geographical location.
+							</p>
+						</div>
+					</div>
+
+				<div class="copyright p-15">
+					<div class="container">
+						<ul class="float-right m-0 list-inline mobile-block">
+							<li> <%= link_to 'Terms & Conditions', tos_path %></li>
+							<li>&bull;</li>
+							<li> <%= link_to 'Privacy', privacy_path %></li>
+						</ul>
+						&copy; All Rights Reserved, Company LTD
+					</div>
+				</div>
+			</footer>
+	</div>
+
+<!-- SCROLL TO TOP -->
+<a href="#" id="toTop"></a>
+
+<!-- PRELOADER -->
+<div id="preloader">
+<div class="inner">
+<span class="loader"></span>
+</div>
+</div><!-- /PRELOADER -->
+
+</body>
+</html>

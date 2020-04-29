@@ -1,0 +1,171 @@
+
+---
+admin_users:
+  columns:
+  - id
+  - email
+  - encrypted_password
+  - firstNname
+  - name
+  - reset_password_token
+  - reset_password_sent_at
+  - remember_created_at
+  - sign_in_count
+  - current_sign_in_at
+  - last_sign_in_at
+  - current_sign_in_ip
+  - last_sign_in_ip
+  - confirmation_token
+  - confirmed_at
+  - confirmation_sent_at
+  - unconfirmed_email
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - test@test.com
+    - "$2a$11$mmw0.7z8TGQc0b7gW9y39eLt/Co2vKE8RK5F6qgTI9KjVTKppUlEm"
+    - ''
+    - ''
+    - 
+    - 
+    - 
+    - 0
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 2020-03-07 04:19:11.000000000 Z
+    - 2020-03-07 04:19:11.000000000 Z
+
+---
+ar_internal_metadata:
+  columns:
+  - key
+  - value
+  - created_at
+  - updated_at
+  records: 
+  - - environment
+    - development
+    - 2020-03-07 03:58:53.000000000 Z
+    - 2020-03-07 03:58:53.000000000 Z
+
+---
+quotes:
+  columns:
+  - id
+  - NumAppartment
+  - NumFLoors
+  - NumBasement
+  - NumParking
+  - NumBusiness
+  - NumElevatorsDesired
+  - NumOccupantsPerFloor
+  - NumELevatorEstimated
+  - InstallFee
+  - SubTotal
+  - TotalPrice
+  - created_at
+  - updated_at
+  - JobQuality
+  records: 
+  - - 1
+    - 110
+    - 12
+    - 17
+    - 0
+    - 0
+    - 0
+    - 0
+    - 2
+    - 3209.7
+    - 24690.0
+    - 27899.7
+    - 2020-03-07 03:59:28.000000000 Z
+    - 2020-03-07 03:59:28.000000000 Z
+    - 1
+  - - 2
+    - 168
+    - 8
+    - 6
+    - 0
+    - 0
+    - 0
+    - 0
+    - 4
+    - 9856.0
+    - 61600.0
+    - 71456.0
+    - 2020-03-07 04:00:10.000000000 Z
+    - 2020-03-07 04:00:10.000000000 Z
+    - 2
+  - - 3
+    - 80
+    - 35
+    - 7
+    - 0
+    - 0
+    - 0
+    - 0
+    - 1
+    - 756.5
+    - 7565.0
+    - 8321.5
+    - 2020-03-07 04:02:00.000000000 Z
+    - 2020-03-07 04:02:00.000000000 Z
+    - 0
+  - - 4
+    - 94
+    - 13
+    - 11
+    - 0
+    - 0
+    - 0
+    - 0
+    - 2
+    - 4928.0
+    - 30800.0
+    - 35728.0
+    - 2020-03-07 04:20:03.000000000 Z
+    - 2020-03-07 04:20:03.000000000 Z
+    - 2
+
+---
+users:
+  columns:
+  - id
+  - email
+  - encrypted_password
+  - reset_password_token
+  - reset_password_sent_at
+  - remember_created_at
+  - created_at
+  - updated_at
+  - admin
+  - superadmin
+  records: 
+  - - 1
+    - default@example.com
+    - "$2a$11$DbKSsz8EAHxX/Sti2vE7Y.WLdI4qBu.G7F4V8fSFi/mbS77Mj0wiO"
+    - 
+    - 
+    - 
+    - 2020-03-07 03:57:55.000000000 Z
+    - 2020-03-07 04:30:44.000000000 Z
+    - false
+    - true
+  - - 2
+    - test2@test.com
+    - "$2a$11$vT3DxNSRtW5Q1wX58fHJJOkEqdIjYYzwTLmfzqJLIAm6LFVX0m73O"
+    - 
+    - 
+    - 
+    - 2020-03-07 04:21:27.000000000 Z
+    - 2020-03-07 04:22:07.000000000 Z
+    - true
+    - true

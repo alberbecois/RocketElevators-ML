@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 
+  status: MyString
+  commissioningDate: 2020-03-10 14:14:53
+  lasteInspectionDate: 2020-03-10 14:14:53
+  certificateOfOperations: MyString
+  information: MyText
+  notes: MyText
+
+two:
+  type: 
+  status: MyString
+  commissioningDate: 2020-03-10 14:14:53
+  lasteInspectionDate: 2020-03-10 14:14:53
+  certificateOfOperations: MyString
+  information: MyText
+  notes: MyText
