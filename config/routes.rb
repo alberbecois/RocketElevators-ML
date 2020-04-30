@@ -9,7 +9,8 @@ Rails.application.routes.draw do
 
   resources :quotes
   resources :leads
-  post "recognition/upload" => "recognition#upload"
+  post "/recognition/upload" => "recognition#upload"
+  post "/recognition/audiorecognition" => "recognition#audiorecognition"
   post '/index' => "leads#create"
   post '/quotes' => "quotes#create"
   get '/recognition' => "recognition#index"
