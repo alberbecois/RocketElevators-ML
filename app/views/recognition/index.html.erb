@@ -79,65 +79,24 @@
       <div class="heading-title heading-dotted text-center mb-20">
           <h2>Machine Learning</h2>
       </div>
-    </div>
-
-    <div class="col-md-4" >
-            <%= form_for :speech, url: recognition_upload_url, :multipart => true   do |f| %>
-                <fieldset>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="contact:attachment">Audio File Attachment</label>
-
-                            <!-- custom file upload -->
-                            <%= file_field_tag "attachement1", class: 'custom-file-upload' %>
-                            <small class="text-muted block">Max file size: 10Mb (WAV/mp3)</small>
-                            <%= f.hidden_field :avatar_cache %>
+    
+        <div class="row">
+            <div class="col-md-12" >
+                <form enctype="multipart/form-data" name="upload" action="recognition/upload" method="POST" >
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <%# <input name="uploadfile" type="file" multiple> %>
+                                <p>Audio File Attachment</p>
+                                    <%= file_field_tag "uploadfile", class: 'custom-file-upload' %>
+                            </div>
                         </div>
-                        <div class="col-md-12">
-                            <label for="contact:attachment">Audio File Attachment</label>
-
-                            <!-- custom file upload -->
-                            <%= file_field_tag "attachement2", class: 'custom-file-upload' %>
-                            <small class="text-muted block">Max file size: 10Mb (WAV/mp3)</small>
-
-                        </div>
-                        <div class="col-md-12">
-                            <label for="contact:attachment">Audio File Attachment</label>
-
-                            <!-- custom file upload -->
-                            <%= file_field_tag "attachement3", class: 'custom-file-upload' %>
-                            <small class="text-muted block">Max file size: 10Mb ((WAV/mp3)</small>
-
-                        </div>
-                    </div>
-                    <%= submit_tag "Upload the file" %>
-                </fieldset>
-            <% end %> 
-
-            <div class="col-md-10">
-                <p style=" margin: 15px 0px;"> <%= radio_button_tag :recognition, "franck1.wav", false, :onclick => "audioSelected(this)" %> Test test </p>
-                <audio controls>
-                    <source src="/audios/franck1.wav" type="audio/wav">
-                    Your browser does not support the audio element.
-                </audio>
-                <p style=" margin: 15px 0px;"> <%= radio_button_tag :recognition, 1, false, :onclick => "audioSelected()" %> Test test </p>
-                <audio controls>
-                    <source src="/audios/franck2.wav" type="audio/wav">
-                    Your browser does not support the audio element.
-                </audio>
-                <p style=" margin: 15px 0px;"> <%= radio_button_tag :recognition, 1, false, :onclick => "audioSelected()" %> Test test </p>
-                <audio controls>
-                    <source src="/audios/franck3.wav" type="audio/wav">
-                    Your browser does not support the audio element.
-                </audio>
-                <p style=" margin: 15px 0px;"> <%= radio_button_tag :recognition, 1, false, :onclick => "audioSelected()" %> Test test </p>
-                <audio controls>
-                    <source src="/audios/franck1.wav" type="audio/wav">
-                    Your browser does not support the audio element.
-                </audio>
+                            <%= submit_tag "Upload the file" %>
+                    </fieldset>
+                </form>
             </div>
         </div>
-        
+    </div>
 </body>
 </html>
 
