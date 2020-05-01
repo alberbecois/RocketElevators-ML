@@ -85,8 +85,8 @@
 
         <div class="container">
             <ul class="list-inline">
-                <li><a id="#speech-identification1" onclick='displayuploadfile()'>Speech Identification</a></li>
-                <li><a id="#speech-recognition1" onclick ='displayshowspeechrecognition()'>Speech Recognition</a></li>
+                <li><a id="#speech-identification1" onclick='displayuploadfile()'>Speaker Registration</a></li>
+                <li><a id="#speech-recognition1" onclick ='displayshowspeechrecognition()'>Speaker Recognition</a></li>
                 <li><a id="#speech-transcription1" onclick = 'displayshowspeechtranscription()'>Speech Transcription</a></li>
             </ul>
         </div>
@@ -96,7 +96,7 @@
             
             <div class="col-md-4">
                 <div>        
-                    <h4>Speech Identification</h4>
+                    <h4>Speaker Registration</h4>
                 </div>
                 <%= form_for :speech, url: recognition_upload_url, :multipart => true   do |f| %>
                     <fieldset>
