@@ -37,7 +37,7 @@ class RecognitionController < ApplicationController
             puts hash["identificationProfileId"]
             
             idProfil =  hash["identificationProfileId"]
-            # idProfil = '92489933-e1e7-4fea-97d2-2084d427ad9d'
+            
             p "Create profile  enrolement..."
           
           http_url = 'https://speechelevators.cognitiveservices.azure.com/spid/v1.0/identificationProfiles/'+idProfil.to_s+'/enroll'
@@ -72,6 +72,7 @@ class RecognitionController < ApplicationController
       just_filename.sub(/[^\w\.\-]/,'_')
   end
 
+  # Function that create the profil of the speaker
   def createProfile
         p "Create a profil ..."
         p "Key:"+ENV["AZURESPEAKERKEY"]
@@ -94,6 +95,7 @@ class RecognitionController < ApplicationController
       response.body
   end
 
+  # Function that allows to convert the audio file in binary format
   def createBinary(path="")
 
       p Rails.root
@@ -106,7 +108,6 @@ class RecognitionController < ApplicationController
       end
       
   end
-
 
   def audiorecognition
     # getIdentificationStatus
@@ -140,7 +141,7 @@ class RecognitionController < ApplicationController
     end
     
   end
-
+  # This function helps to delete all the created profil if needed
   def deleteAllProfil()
     hash = getAllIndentificationProfil
     p "delete all profile ...."
@@ -153,7 +154,7 @@ class RecognitionController < ApplicationController
     end
     
   end
-
+  # here we can delete one profil
   def deleteProfil(idprofil)
 
     p "deleting profile with id: "+idprofil.to_s
@@ -174,7 +175,7 @@ class RecognitionController < ApplicationController
     puts response.body
 
   end 
-
+  # Here we get of the profil created
   def getIdProfils(hash) 
     ids = []
     p "retrieve ids"
@@ -187,8 +188,8 @@ class RecognitionController < ApplicationController
     end
 
     p "your created profil ids"
-    puts ids.take(10).join(",")
-    return ids.take(10).join(",")
+    puts ids.take(3).join(",")
+    return ids.take(3).join(",")
   end
 
   # Identification des profils 
@@ -222,6 +223,7 @@ class RecognitionController < ApplicationController
     getOperationStatus(header)
   end
 
+  # This function allows to get the status of the speaker recognition
   def getOperationStatus(url)
         
     uri = URI(url)
@@ -246,7 +248,8 @@ class RecognitionController < ApplicationController
         format.json { render json: resp }
     end
   end
-
+  
+  # The get identification function 
   def getidentificationx(binaryfile)
 
         
@@ -271,6 +274,7 @@ class RecognitionController < ApplicationController
     puts response.header["Operation-Location"]
 
   end
+
 
   def getAllIndentificationProfil
 
