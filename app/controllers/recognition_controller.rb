@@ -147,6 +147,7 @@ class RecognitionController < ApplicationController
     return ids.take(10).join(",")
   end
 
+  # Identification des profils 
   def voiceidentification(profilids, binaryfile)
 
     p "State identification ....."
@@ -163,7 +164,7 @@ class RecognitionController < ApplicationController
     request['Content-Type'] = 'application/octet-stream'
     request['Content-Length'] = 0
     # Request headers
-    request['Ocp-Apim-Subscription-Key'] = ''
+    request['Ocp-Apim-Subscription-Key'] = ENV["AZURESPEAKERKEY"]
     # Request body
     request.body = ""
 

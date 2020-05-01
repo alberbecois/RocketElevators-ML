@@ -75,68 +75,130 @@
         </header>
     </div>
 
+    
+    
     <div class="container">
       <div class="heading-title heading-dotted text-center mb-20">
           <h2>Machine Learning</h2>
       </div>
     </div>
 
-    <div class="col-md-4" >
-            <%= form_for :speech, url: recognition_upload_url, :multipart => true   do |f| %>
-                <fieldset>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="contact:attachment">Audio File Attachment</label>
-
-                            <!-- custom file upload -->
-                            <%= file_field_tag "attachement1", class: 'custom-file-upload' %>
-                            <small class="text-muted block">Max file size: 10Mb (WAV/mp3)</small>
-                            <%= f.hidden_field :avatar_cache %>
-                        </div>
-                        <div class="col-md-12">
-                            <label for="contact:attachment">Audio File Attachment</label>
-
-                            <!-- custom file upload -->
-                            <%= file_field_tag "attachement2", class: 'custom-file-upload' %>
-                            <small class="text-muted block">Max file size: 10Mb (WAV/mp3)</small>
-
-                        </div>
-                        <div class="col-md-12">
-                            <label for="contact:attachment">Audio File Attachment</label>
-
-                            <!-- custom file upload -->
-                            <%= file_field_tag "attachement3", class: 'custom-file-upload' %>
-                            <small class="text-muted block">Max file size: 10Mb ((WAV/mp3)</small>
-
-                        </div>
-                    </div>
-                    <%= submit_tag "Upload the file" %>
-                </fieldset>
-            <% end %> 
-
-            <div class="col-md-10">
-                <p style=" margin: 15px 0px;"> <%= radio_button_tag :recognition, "franck1.wav", false, :onclick => "audioSelected(this)" %> Test test </p>
-                <audio controls>
-                    <source src="/audios/franck1.wav" type="audio/wav">
-                    Your browser does not support the audio element.
-                </audio>
-                <p style=" margin: 15px 0px;"> <%= radio_button_tag :recognition, 1, false, :onclick => "audioSelected()" %> Test test </p>
-                <audio controls>
-                    <source src="/audios/franck2.wav" type="audio/wav">
-                    Your browser does not support the audio element.
-                </audio>
-                <p style=" margin: 15px 0px;"> <%= radio_button_tag :recognition, 1, false, :onclick => "audioSelected()" %> Test test </p>
-                <audio controls>
-                    <source src="/audios/franck3.wav" type="audio/wav">
-                    Your browser does not support the audio element.
-                </audio>
-                <p style=" margin: 15px 0px;"> <%= radio_button_tag :recognition, 1, false, :onclick => "audioSelected()" %> Test test </p>
-                <audio controls>
-                    <source src="/audios/franck1.wav" type="audio/wav">
-                    Your browser does not support the audio element.
-                </audio>
-            </div>
+        <div class="container">
+            <ul class="list-inline">
+                <li><a id="#speech-identification1" onclick='displayuploadfile()'>Speech Identification</a></li>
+                <li><a id="#speech-recognition1" onclick ='displayshowspeechrecognition()'>Speech Recognition</a></li>
+                <li><a id="#speech-transcription1" onclick = 'displayshowspeechtranscription()'>Speech Transcription</a></li>
+            </ul>
         </div>
+
+
+        <div class="container" id="speech-identification2" style="display:none">
+            
+            <div class="col-md-4">
+                <div>        
+                    <h4>Speech Identification</h4>
+                </div>
+                <%= form_for :speech, url: recognition_upload_url, :multipart => true   do |f| %>
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="contact:attachment">Audio File Attachment</label>
+                                <!-- custom file upload -->
+                                <%= file_field_tag "attachement1", class: 'custom-file-upload' %>
+                                <small class="text-muted block">Max file size: 10Mb (WAV/mp3)</small>
+                            </div>
+                        </div>
+                        <%= submit_tag "Upload the file" %>
+                    </fieldset>
+                <% end %> 
+            </div>    
+        
+        </div>
+
+        <div class="container" id="speech-recognition2" style="display:none">
+            <div class="col-md-4">
+                <h4>Speech Recognition</h4>
+            </div>
+            
+                <div class="col-md-10">
+                    <div class="row">
+                        <p style=" margin: 15px 0px;"> <%= radio_button_tag :recognition, "Conversation-01.wav", false, :onclick => "audioSelected(this)" %> Scenario 1 </p>
+                        <audio controls>
+                            <source src="/audios/Conversation-01.wav" type="audio/wav">                    
+                        </audio>
+                    </div>
+
+                    <div class="row">
+                        <p style=" margin: 15px 0px;"> <%= radio_button_tag :recognition, "Conversation-02.wav", false, :onclick => "audioSelected()" %> Scenario 2 </p>
+                        <audio controls>
+                            <source src="/audios/Conversation-02.wav" type="audio/wav">
+                        </audio>
+                    </div>
+                    
+                    <div class="row">
+                        <p style=" margin: 15px 0px;"> <%= radio_button_tag :recognition, "Conversation-03.wav", false, :onclick => "audioSelected()" %> Scenario 3 </p>
+                        <audio controls>
+                            <source src="/audios/Conversation-03.wav" type="audio/wav">
+                        </audio>
+                    </div>
+
+                    <div class="row">
+                        <p style=" margin: 15px 0px;"> <%= radio_button_tag :recognition, "Conversation-04.wav", false, :onclick => "audioSelected()" %> Scenario 4 </p>
+                        <audio controls>
+                            <source src="/audios/Conversation-04.wav" type="audio/wav">
+                        </audio>
+                    </div>
+
+                    <div class="row">
+                        <p style=" margin: 15px 0px;"> <%= radio_button_tag :recognition, "Conversation-05.wav", false, :onclick => "audioSelected()" %> Scenario 5 </p>
+                        <audio controls>
+                            <source src="/audios/Conversation-05.wav" type="audio/wav">
+                        </audio>
+                    </div>
+
+                    <div class="row">
+                        <p style=" margin: 15px 0px;"> <%= radio_button_tag :recognition, "Conversation-06.wav", false, :onclick => "audioSelected()" %> Scenario 6 </p>
+                        <audio controls>
+                            <source src="/audios/Conversation-06.wav" type="audio/wav">
+                        </audio>
+                    </div>
+
+                    <div class="row">
+                        <p style=" margin: 15px 0px;"> <%= radio_button_tag :recognition, "Conversation-07.wav", false, :onclick => "audioSelected()" %> Scenario 7 </p>
+                        <audio controls>
+                            <source src="/audios/Conversation-07.wav" type="audio/wav">
+                        </audio>
+                    </div>
+
+                    <div class="row">
+                        <p style=" margin: 15px 0px;"> <%= radio_button_tag :recognition, "Conversation-08.wav", false, :onclick => "audioSelected()" %> Scenario 8 </p>
+                        <audio controls>
+                            <source src="/audios/Conversation-08.wav" type="audio/wav">
+                        </audio>
+                    </div>
+
+                    <div class="row">
+                        <p style=" margin: 15px 0px;"> <%= radio_button_tag :recognition, "Conversation-09.wav", false, :onclick => "audioSelected()" %> Scenario 9 </p>
+                        <audio controls>
+                            <source src="/audios/Conversation-09.wav" type="audio/wav">
+                        </audio>
+                    </div>
+
+                    <div class="row">
+                        <p style=" margin: 15px 0px;"> <%= radio_button_tag :recognition, "Conversation-10.wav", false, :onclick => "audioSelected()" %> Scenario 10 </p>
+                        <audio controls>
+                            <source src="/audios/Conversation-10.wav" type="audio/wav">
+                        </audio>
+                    </div>
+                </div>
+                    
+        </div>
+    
+
+
+
+
+
         
 </body>
 </html>
@@ -163,5 +225,23 @@
 
     }
 </script>
+
+<script>
+function displayuploadfile(){
+    document.getElementById('speech-identification2').style.display="block"
+    document.getElementById('speech-recognition2').style.display="none"
+}
+</script>
+
+<script>
+function displayshowspeechrecognition(){
+    document.getElementById('speech-recognition2').style.display="block"
+    document.getElementById('speech-identification2').style.display="none"
+
+}
+</script>
+
+
+
 
 
