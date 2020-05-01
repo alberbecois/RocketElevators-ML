@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   resources :quotes
   resources :leads
+  post "/recognition/enrollment" => "recognition#enrollment"
   post "/recognition/upload" => "recognition#upload"
   post "/recognition/audiorecognition" => "recognition#audiorecognition"
   post '/index' => "leads#create"

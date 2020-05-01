@@ -87,7 +87,27 @@
 
         <div class="tab-content">
             <div class="tab-pane active" id="recognition">
-                <p>Patate</p>
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-sm-6 col-lg-8" >
+                        <div class="card card-default text-center">
+                            <div class="card-block">
+                                <%= form_tag 'recognition/enrollment', multipart: true do %>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-8">
+                                            <p>Audio File Attachment</p>
+                                                <input class="custom-file-upload" type="file" id="enrollment_file" name="enrollment_file" id="enrollment_file" data-btn-text="Select a File" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-8">
+                                            <%= button_tag(type: 'submit', class: "btn-colored-message") do %> CREATE TRANSCRIPTION <% end %>
+                                        </div>
+                                    </div>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="tab-pane fade" id="speechtotext">
                 <div class="row justify-content-center">
@@ -98,7 +118,7 @@
                                     <div class="row">
                                         <div class="col-md-12 col-sm-8">
                                             <p>Audio File Attachment</p>
-                                                <input class="custom-file-upload" type="file" id="uploadfile" name="uploadfile" id="uploadfile" data-btn-text="Select a File" />
+                                                <input class="custom-file-upload" type="file" id="speech_to_text_file" name="speech_to_text_file" id="speech_to_text_file" data-btn-text="Select a File" />
                                         </div>
                                     </div>
                                     <div class="row">
