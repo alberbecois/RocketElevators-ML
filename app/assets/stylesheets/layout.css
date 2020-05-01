@@ -8660,7 +8660,7 @@ div.category-grid>div {
 
 .card {
     margin-bottom: 26px;
-    overflow-y: auto;
+    /* overflow-y: auto; */
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     -o-border-radius: 3px;

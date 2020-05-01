@@ -79,23 +79,42 @@
       <div class="heading-title heading-dotted text-center mb-20">
           <h2>Machine Learning</h2>
       </div>
-    
-        <div class="row">
-            <div class="col-md-12" >
-                <form enctype="multipart/form-data" name="upload" action="recognition/upload" method="POST" >
-                    <fieldset>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <%# <input name="uploadfile" type="file" multiple> %>
-                                <p>Audio File Attachment</p>
-                                    <%= file_field_tag "uploadfile", class: 'custom-file-upload' %>
+
+        <ul class="nav nav-tabs nav-justified">
+            <li class="nav-item"><a class="nav-link active" href="#recognition" data-toggle="tab">Recognition</a></li>
+            <li class="nav-item"><a class="nav-link" href="#speechtotext" data-toggle="tab">Speech to text</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="recognition">
+                <p>Patate</p>
+            </div>
+            <div class="tab-pane fade" id="speechtotext">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-sm-6 col-lg-8" >
+                        <div class="card card-default text-center">
+                            <div class="card-block">
+                                <%= form_tag 'recognition/upload', multipart: true do %>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-8">
+                                            <p>Audio File Attachment</p>
+                                                <input class="custom-file-upload" type="file" id="uploadfile" name="uploadfile" id="uploadfile" data-btn-text="Select a File" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-8">
+                                            <%= button_tag(type: 'submit', class: "btn-colored-message") do %> CREATE TRANSCRIPTION <% end %>
+                                        </div>
+                                    </div>
+                                <% end %>
                             </div>
                         </div>
-                            <%= submit_tag "Upload the file" %>
-                    </fieldset>
-                </form>
+                    </div>
+                </div>
             </div>
         </div>
+    
+        
     </div>
 </body>
 </html>

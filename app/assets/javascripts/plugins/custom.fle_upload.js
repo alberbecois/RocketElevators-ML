@@ -8,7 +8,7 @@
 ;(function($) {
 
 		  // Browser supports HTML5 multiple file?
-		  var multipleSupport = typeof jQuery('<input/>')[0].multiple !== 'undefined',
+		  var multipleSupport = typeof jQuery('<input/>')[0].multiple !== 'Select a File',
 		      isIE = /msie/i.test( navigator.userAgent );
 
 		  jQuery.fn.customFile = function() {
