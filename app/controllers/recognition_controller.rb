@@ -24,7 +24,7 @@ class RecognitionController < ApplicationController
   def upload
       puts params.inspect
       puts params[:speech]
-      file_name = sanitize_filename(params[:attachement1])
+      file_name = sanitize_filename(params[:attachment])
       puts "File name : "+file_name
       puts "Key: "+ENV["AZURESPEAKERKEY"]
       binaryOfFile = createBinary(file_name)
@@ -109,14 +109,24 @@ class RecognitionController < ApplicationController
 
 
   def audiorecognition
+    # getIdentificationStatus
+    #deleteAllProfil()
     puts "audio recognition "
     puts params.inspect
     filename = params[:filename]
-    absPath = File.expand_path('public/audios/'+filename)
-    puts absPath
-    if(File.exists?(absPath))
-        puts "woooooooo "
-        azurerecognitionapi(File.binread(absPath))
+    operationStatusUrl = params[:url]
+    if operationStatusUrl == ""
+      p "First find the audio before calling getOperationStatus"
+      absPath = File.expand_path('public/audios/'+filename)
+      puts absPath
+      if(File.exists?(absPath))
+          puts "woooooooo "
+          # getidentificationx(File.binread(absPath))
+          azurerecognitionapi(File.binread(absPath))
+      end
+    else
+      p "call getOperationStatus directly as url already exist"
+      getOperationStatus(operationStatusUrl)
     end
   end
 
@@ -126,10 +136,44 @@ class RecognitionController < ApplicationController
     if !ids.nil? 
         voiceidentification(ids, binary)
     else 
-        p "No profil ids found ...."
+        p "No profile ids found ...."
     end
     
   end
+
+  def deleteAllProfil()
+    hash = getAllIndentificationProfil
+    p "delete all profile ...."
+    hash.each do |key, value|
+        key.each do |k,v|
+            if(k == "identificationProfileId")
+              deleteProfil(v)
+            end
+        end
+    end
+    
+  end
+
+  def deleteProfil(idprofil)
+
+    p "deleting profile with id: "+idprofil.to_s
+    uri = URI('https://westus.api.cognitive.microsoft.com/spid/v1.0/identificationProfiles/'+idprofil.to_s)
+    uri.query = URI.encode_www_form({
+    })
+
+    request = Net::HTTP::Delete.new(uri.request_uri)
+    # Request headers
+    request['Ocp-Apim-Subscription-Key'] = ENV["AZURESPEAKERKEY"]
+    # Request body
+    request.body = ""
+
+    response = Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') do |http|
+        http.request(request)
+    end
+
+    puts response.body
+
+  end 
 
   def getIdProfils(hash) 
     ids = []
@@ -151,18 +195,40 @@ class RecognitionController < ApplicationController
   def voiceidentification(profilids, binaryfile)
 
     p "State identification ....."
-    #http_url = 'https://speechelevators.cognitiveservices.azure.com/spid/v1.0/identify?identificationProfileIds='+profilids.to_s
-    _http_url='https://speechelevators.cognitiveservices.azure.com/spid/v1.0/identify?identificationProfileIds=d8a4a75a-9d90-4706-a796-9455dc87206a'
+    _http_url = 'https://speechelevators.cognitiveservices.azure.com/spid/v1.0/identify?identificationProfileIds='+profilids.to_s
+    #_http_url='https://speechelevators.cognitiveservices.azure.com/spid/v1.0/identify?identificationProfileIds=18b05764-1057-4fe4-b03f-6704041f90ac'
     p "Voice identification endpoint: "+_http_url
         
     uri = URI(_http_url)
-    uri.query = URI.encode_www_form({
-    })
+    # uri.query = URI.encode_www_form({
+    # })
 
     request = Net::HTTP::Post.new(uri.request_uri)
     # Request headers
     request['Content-Type'] = 'application/octet-stream'
     request['Content-Length'] = 0
+    # Request headers
+    request['Ocp-Apim-Subscription-Key'] = ENV["AZURESPEAKERKEY"]
+    # Request body
+    request.body = binaryfile
+
+    response = Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') do |http|
+        http.request(request)
+    end
+
+    header =  response.header["Operation-Location"]
+    p "identify profiles operation url"
+    puts header
+    getOperationStatus(header)
+  end
+
+  def getOperationStatus(url)
+        
+    uri = URI(url)
+    uri.query = URI.encode_www_form({
+    })
+
+    request = Net::HTTP::Get.new(uri.request_uri)
     # Request headers
     request['Ocp-Apim-Subscription-Key'] = ENV["AZURESPEAKERKEY"]
     # Request body
@@ -172,7 +238,37 @@ class RecognitionController < ApplicationController
         http.request(request)
     end
 
+    resp= JSON.parse(response.body)
+    resp[:operationStatusUrl] = url.to_s
+    p "operation status response ...."
     puts response.body
+    respond_to do |format|
+        format.json { render json: resp }
+    end
+  end
+
+  def getidentificationx(binaryfile)
+
+        
+    uri = URI('https://speechelevators.cognitiveservices.azure.com/spid/v1.0/identify?identificationProfileIds=18b05764-1057-4fe4-b03f-6704041f90ac')
+    # uri.query = URI.encode_www_form({
+    #     # Request parameters
+    #     #'shortAudio' => '{boolean}'
+    # })
+
+    request = Net::HTTP::Post.new(uri.request_uri)
+    # Request headers
+    request['Content-Type'] = 'application/octet-stream'
+    # Request headers
+    request['Ocp-Apim-Subscription-Key'] = ENV["AZURESPEAKERKEY"]
+    # Request body
+    request.body = binaryfile
+
+    response = Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') do |http|
+        http.request(request)
+    end
+
+    puts response.header["Operation-Location"]
 
   end
 
