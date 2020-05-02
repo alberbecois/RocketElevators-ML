@@ -1,6 +1,6 @@
-# Rocket Elevators Foundation
+# Rocket Elevators - Machine Learning
 
-## WEEK 11 - Test Driven Development
+## WEEK 12 - Machine Learning
 
 ### Video showcase : https://www.youtube.com/watch?v=8SIg9bufv9g
 
