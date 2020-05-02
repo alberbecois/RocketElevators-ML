@@ -2,7 +2,7 @@
 
 ## WEEK 12 - Machine Learning
 
-### Video showcase : https://www.youtube.com/watch?v=8SIg9bufv9g
+### Video showcase : https://www.youtube.com/watch?v=ovhl46_hw_Y
 
 ### Features
 ```
@@ -13,8 +13,14 @@
 - Multiple fully fonctional apis;
 - Rake tasks to fully operate the databases;
 - Fully operational postman collection to test the apis;
-- An "Elevators media streamer" feature for rspec testing.
+- An "Elevators media streamer" feature for rspec testing;
+- A speech recognition & speech to text API.
 ```
+
+### Instructions for testing
+- Login as admin on the page, in the menu click on the "administration" dropdown and select "recognition";
+- Simply browse the tabs on the recognition page for your needs, everything is explaine on the video if clarification is needed.
+
 ### Admin Information
 ```
 - Admin email/pass : mathieu.houde@codeboxx.biz/password
@@ -29,11 +35,10 @@
 - Rake dwh:update : truncates the postgresql tables AND populates them
 ```
 
-### Instructions for testing
+### Rspec Information
 - For testing the api requests, simply run the pre-made postmand collection;
 - For testing the rspec examples, use the following command : bundle exec rspec --format documentation
 
-### Rspec Information
 - Everything is running on the development environment to ease the usage;
 - After running the specified command in the instructions, an html file will be generated in the /coverage folder of the application (simplecov gem). This file will allow you to see the coverage of the examples tested with rspec (for the whole application). Simply open up the file in your browser.
 - The following are the tested examples :
