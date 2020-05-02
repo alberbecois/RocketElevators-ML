@@ -2,14 +2,13 @@
 <html>
   <head>
     <title>Rocket Elevators</title>
-
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>  
+    
     <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
     <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
     <%= javascript_include_tag "application", media: "all", "data-turbolinks-track" => true %>
 
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>  
-    
     <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Open+Sans:400&subset=latin', type: 'text/css', 'data-turbolinks-track' => true %>
     <%= favicon_link_tag asset_path('favicon.png') %>
 
@@ -18,17 +17,7 @@
     <link href="assets/plugins/slider.revolution/css/extralayers.css" rel="stylesheet" type="text/css" />
     <link href="assets/plugins/slider.revolution/css/settings.css" rel="stylesheet" type="text/css" />
 
-    <!-- THEMES -->	
-
-
-    <!-- REVOLUTION SLIDER -->
-    
     <script>var plugin_path = '/assets/plugins/';</script> 
-    <%= javascript_include_tag "plugins/jquery/jquery-3.3.1.min.js" %>
-    <%= javascript_include_tag "plugins/slider.revolution/js/jquery.themepunch.tools.min" %>
-    <%= javascript_include_tag "plugins/slider.revolution/js/jquery.themepunch.revolution.min.js" %>
-    <%= javascript_include_tag "view/demo.revolution_slider.js" %>
-    <%= javascript_include_tag "contact.js" %>
   </head>
 
   <body>
@@ -40,7 +29,6 @@
     <%= yield %>
 
     <%= javascript_include_tag "scripts" %>
-    
     
   </body>
 </html>
