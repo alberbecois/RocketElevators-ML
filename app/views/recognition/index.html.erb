@@ -98,6 +98,7 @@
 
         <ul class="nav nav-tabs nav-justified">
             <li class="nav-item"><a class="nav-link active" href="#enrollment" data-toggle="tab">Enrollment</a></li>
+            <li class="nav-item"><a class="nav-link" href="#create_profile" data-toggle="tab">Create profile</a></li>
             <li class="nav-item"><a class="nav-link" href="#get_profiles" data-toggle="tab">Get all profiles</a></li>
             <li class="nav-item"><a class="nav-link" href="#identification" data-toggle="tab">Identification</a></li>
             <li class="nav-item"><a class="nav-link" href="#speechtotext" data-toggle="tab">Speech to text</a></li>
@@ -143,6 +144,24 @@
                                     <div class="row">
                                         <div class="col-md-12 col-sm-8">
                                             <%= button_tag(type: 'submit', class: "btn-colored-message") do %> CREATE TRANSCRIPTION <% end %>
+                                        </div>
+                                    </div>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="create_profile">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-sm-6 col-lg-8" >
+                        <div class="card card-default text-center">
+                            <div class="card-block">
+                                <%= form_tag 'recognition/create_profile', multipart: true do %>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-8">
+                                            <%= button_tag(type: 'submit', class: "btn-colored-message", id: "create_profile_file", name: "create_profile_file") do %> CREATE PROFILE <% end %>
                                         </div>
                                     </div>
                                 <% end %>
@@ -199,28 +218,3 @@
     </div>
 </body>
 </html>
-
-<script>
-    
-    document.addEventListener('DOMContentLoaded', function() {
-        
-    }, false);
-
-    function audioSelected(e) {
-        var filename = e.value;
-        var param ={"filename":filename}
-
-
-        $.ajax({
-            type: "POST",
-            url: "/recognition/audiorecognition",
-            data: param,
-            success: function(xht){
-               console.log(xht)
-            }
-        });        
-
-    }
-</script>
-
-

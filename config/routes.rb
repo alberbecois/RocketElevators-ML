@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :quotes
   resources :leads
   post "/recognition/enrollment" => "recognition#enrollment"
+  post "/recognition/create_profile" => "recognition#create_profile"
   get "/recognition/get_profiles" => "recognition#get_profiles"
   post "/recognition/identification" => "recognition#identification"
   post "/recognition/speech_to_text" => "recognition#speech_to_text"

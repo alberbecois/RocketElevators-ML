@@ -41,12 +41,47 @@ class RecognitionController < ApplicationController
     
             response = result.request(request)
             puts "================================================="
-            # @patate = JSON.parse("patate")
             pp response
             puts "================================================="
     
-            # Rendering the transcription on recognition/upload route
+            # Rendering the respone body
             render json: response
+        end
+    end
+
+    def create_profile
+        if !params[ :create_profile_file ].nil?
+            # profiles = params[:create_profile_file]
+            
+            uri = URI('https://rocketelevators-recognition.cognitiveservices.azure.com/spid/v1.0/identificationProfiles')
+            uri.query = URI.encode_www_form({})
+            puts "================================================="
+            puts "URL : #{uri}"
+            puts "================================================="
+
+            # request = Net::HTTP::Post.new(uri.request_uri)
+            result = Net::HTTP.new(uri.host, uri.port)
+            request = Net::HTTP::Post.new(uri)
+
+            # Creating the GET request with the content-type & key header along with the binary file upload as body
+            request['Content-Type'] = 'application/json'
+            request['Ocp-Apim-Subscription-Key'] = 'ff37d43187954348be09545f44e4b7c7'
+            request.body = '{ "locale":"en-us", }'
+
+            result.use_ssl = true
+
+
+            # response = Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') do |http|
+            #     http.request(request)
+            # end
+
+            response = result.request(request)
+            puts "================================================="
+            pp response.body
+            puts "================================================="
+    
+            # Rendering the respone body
+            render json: response.body
         end
     end
 
@@ -74,7 +109,7 @@ class RecognitionController < ApplicationController
             pp response.body
             puts "================================================="
     
-            # Rendering the transcription on recognition/upload route
+            # Rendering the respone body
             render json: response.body
         end
     end
@@ -113,7 +148,9 @@ class RecognitionController < ApplicationController
             oplocation = url.split('operations/').last
             # pp oplocation
             
+            # Adding some delay or else the identification won't have time to create itself
             sleep 45
+
             get_url = URI("https://rocketelevators-recognition.cognitiveservices.azure.com/spid/v1.0/operations/#{oplocation}")
             pp get_url
 
@@ -128,7 +165,7 @@ class RecognitionController < ApplicationController
             pp get_response.body
             puts "================================================="
 
-            # Rendering the transcription on recognition/upload route
+            # Rendering the respone body
             render json: get_response.body
         end
     end  
@@ -160,7 +197,7 @@ class RecognitionController < ApplicationController
             pp response.body
             puts "================================================="
     
-            # Rendering the transcription on recognition/upload route
+            # Rendering the respone body
             render json: response.body
         end
     end   
