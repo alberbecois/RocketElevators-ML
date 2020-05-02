@@ -3,12 +3,9 @@
   <head>
     <title>Rocket Elevators</title>
 
-
-
-
     <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
     <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
-    <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag "application", media: "all", "data-turbolinks-track" => true %>
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>  
@@ -26,7 +23,12 @@
 
     <!-- REVOLUTION SLIDER -->
     
-    
+    <script>var plugin_path = '/assets/plugins/';</script> 
+    <%= javascript_include_tag "plugins/jquery/jquery-3.3.1.min.js" %>
+    <%= javascript_include_tag "plugins/slider.revolution/js/jquery.themepunch.tools.min" %>
+    <%= javascript_include_tag "plugins/slider.revolution/js/jquery.themepunch.revolution.min.js" %>
+    <%= javascript_include_tag "view/demo.revolution_slider.js" %>
+    <%= javascript_include_tag "contact.js" %>
   </head>
 
   <body>
@@ -39,6 +41,6 @@
 
     <%= javascript_include_tag "scripts" %>
     
-    <script>var plugin_path = '/assets/plugins/';</script> 
+    
   </body>
 </html>

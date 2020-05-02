@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   root 'pages#index'
 
+  
   authenticate :user do
     resources :interventions
   end
@@ -10,8 +11,9 @@ Rails.application.routes.draw do
   resources :quotes
   resources :leads
   post "/recognition/enrollment" => "recognition#enrollment"
-  post "/recognition/upload" => "recognition#upload"
-  post "/recognition/audiorecognition" => "recognition#audiorecognition"
+  get "/recognition/get_profiles" => "recognition#get_profiles"
+  post "/recognition/identification" => "recognition#identification"
+  post "/recognition/speech_to_text" => "recognition#speech_to_text"
   post '/index' => "leads#create"
   post '/quotes' => "quotes#create"
   get '/recognition' => "recognition#index"

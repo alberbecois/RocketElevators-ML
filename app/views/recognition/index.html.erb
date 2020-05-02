@@ -81,12 +81,14 @@
       </div>
 
         <ul class="nav nav-tabs nav-justified">
-            <li class="nav-item"><a class="nav-link active" href="#recognition" data-toggle="tab">Recognition</a></li>
+            <li class="nav-item"><a class="nav-link active" href="#enrollment" data-toggle="tab">Enrollment</a></li>
+            <li class="nav-item"><a class="nav-link" href="#get_profiles" data-toggle="tab">Get all profiles</a></li>
+            <li class="nav-item"><a class="nav-link" href="#identification" data-toggle="tab">Identification</a></li>
             <li class="nav-item"><a class="nav-link" href="#speechtotext" data-toggle="tab">Speech to text</a></li>
         </ul>
 
         <div class="tab-content">
-            <div class="tab-pane active" id="recognition">
+            <div class="tab-pane active" id="enrollment">
                 <div class="row justify-content-center">
                     <div class="col-md-8 col-sm-6 col-lg-8" >
                         <div class="card card-default text-center">
@@ -100,7 +102,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12 col-sm-8">
-                                            <%= button_tag(type: 'submit', class: "btn-colored-message") do %> CREATE TRANSCRIPTION <% end %>
+                                            <%= button_tag(type: 'submit', class: "btn-colored-message") do %> CREATE ENROLLMENT <% end %>
                                         </div>
                                     </div>
                                 <% end %>
@@ -109,12 +111,13 @@
                     </div>
                 </div>
             </div>
+
             <div class="tab-pane fade" id="speechtotext">
                 <div class="row justify-content-center">
                     <div class="col-md-8 col-sm-6 col-lg-8" >
                         <div class="card card-default text-center">
                             <div class="card-block">
-                                <%= form_tag 'recognition/upload', multipart: true do %>
+                                <%= form_tag 'recognition/speech_to_text', multipart: true do %>
                                     <div class="row">
                                         <div class="col-md-12 col-sm-8">
                                             <p>Audio File Attachment</p>
@@ -124,6 +127,48 @@
                                     <div class="row">
                                         <div class="col-md-12 col-sm-8">
                                             <%= button_tag(type: 'submit', class: "btn-colored-message") do %> CREATE TRANSCRIPTION <% end %>
+                                        </div>
+                                    </div>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="get_profiles">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-sm-6 col-lg-8" >
+                        <div class="card card-default text-center">
+                            <div class="card-block">
+                                <%= form_tag 'recognition/get_profiles', method: :get, multipart: true do %>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-8">
+                                            <%= button_tag(type: 'submit', class: "btn-colored-message", id: "get_profiles_file", name: "get_profiles_file") do %> GET ALL PROFILES <% end %>
+                                        </div>
+                                    </div>
+                                <% end %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="identification">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-sm-6 col-lg-8" >
+                        <div class="card card-default text-center">
+                            <div class="card-block">
+                                <%= form_tag 'recognition/identification', multipart: true do %>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-8">
+                                            <p>Audio File Attachment</p>
+                                                <input class="custom-file-upload" type="file" id="identification_file" name="identification_file" id="identification_file" data-btn-text="Select a File" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-8">
+                                            <%= button_tag(type: 'submit', class: "btn-colored-message") do %> IDENTIFY REGISTERED USERS <% end %>
                                         </div>
                                     </div>
                                 <% end %>
